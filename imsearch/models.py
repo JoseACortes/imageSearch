@@ -1,14 +1,14 @@
-from classification_models.tfkeras import Classifiers
 from tensorflow import keras
+import tensorflow as tf
 
-ResNet18, preprocess_input = Classifiers.get('resnet18')
-rn18 = ResNet18((224, 224, 3), weights='imagenet')
-rn18.compile()
+rn50model = tf.keras.applications.resnet50.ResNet50()
+rn50preprocess = tf.keras.applications.resnet50.preprocess_input
+rn50resolution = (224, 224, 3)
 
-rn18cut = keras.Sequential()
+rn50cut = keras.Sequential()
 for i in range(35):
     try:
-        rn18cut.add(rn18.layers[i])
+        rn50cut.add(rn50model.layers[i])
     except:
         pass
-rn18cut.compile()
+rn50cut.compile()
